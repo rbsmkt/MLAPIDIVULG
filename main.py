@@ -19,3 +19,6 @@ def start(update, context):
     update.message.reply_text("Bot está funcionando!")
 
 dispatcher.add_handler(CommandHandler("start", start))
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=8000)
