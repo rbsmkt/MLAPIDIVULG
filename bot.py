@@ -7,9 +7,9 @@ from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, Con
 
 load_dotenv()
 
-BOT_TOKEN = os.getenv("8085126675:AAEC4utEtdNH1gyK_FRhdz-fgZqyirwtYCQ")
-ML_CLIENT_ID = os.getenv("1407108334528056")
-ML_CLIENT_SECRET = os.getenv("YtlxTYm01Xc6LlnzXAdsjJikZJV9lyfD")
+BOT_TOKEN = os.getenv("BOT_TOKEN")
+ML_CLIENT_ID = os.getenv("ML_CLIENT_ID")
+ML_CLIENT_SECRET = os.getenv("ML_CLIENT_SECRET")
 
 def get_access_token():
     url = "https://api.mercadolibre.com/oauth/token"
