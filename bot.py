@@ -1,17 +1,27 @@
 from flask import Flask, request
 from telegram import Bot, Update
 from telegram.ext import Dispatcher, CommandHandler
+import os
 
-TOKEN = '8085126675:AAEC4utEtdNH1gyK_FRhdz-fgZqyirwtYCQ'
+TOKEN = os.getenv("8085126675:AAEC4utEtdNH1gyK_FRhdz-fgZqyirwtYCQ")
 bot = Bot(token=TOKEN)
 
-app = Flask(__name__)
+app = Flask(__name__)  # 👈 Isso é essencial para o gunicorn encontrar
 
-@app.route('/', methods=['POST'])
+# Dispatcher configurado para funcionar via webhook
+from telegram.ext import Dispatcher
+
+dispatcher = Dispatcher(bot=bot, update_queue=None, use_context=True)
+
+# Comandos
+def start(update, context):
+    update.message.reply_text("Bot ativo via webhook!")
+
+dispatcher.add_handler(CommandHandler("start", start))
+
+# Webhook endpoint
+@app.route(f"/{TOKEN}", methods=["POST"])
 def webhook():
     update = Update.de_json(request.get_json(force=True), bot)
     dispatcher.process_update(update)
-    return 'ok'
-
-dispatcher = Dispatcher(bot, None, workers=0)
-dispatcher.add_handler(CommandHandler('start', lambda update, context: update.message.reply_text("Olá!")))
+    return "ok", 200
