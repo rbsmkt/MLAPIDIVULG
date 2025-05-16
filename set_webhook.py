@@ -1,22 +1,27 @@
-import requests
 import os
+import requests
+from dotenv import load_dotenv
 
-# Pegue o token da variável de ambiente ou coloque direto (menos seguro)
-TOKEN = os.getenv("TELEGRAM_TOKEN", "8085126675:AAEC4utEtdNH1gyK_FRhdz-fgZqyirwtYCQ")
+# Carrega as variáveis do arquivo .env
+load_dotenv()
 
-# Seu domínio no Render (sem barra no final)
-RENDER_URL = "https://seu-app-no-render.onrender.com"
+# Pega as variáveis do ambiente
+TOKEN = os.getenv("TELEGRAM_TOKEN")
+RENDER_URL = os.getenv("RENDER_URL")  # exemplo: https://meuapp.onrender.com
 
-# Define a URL completa do webhook
+if not TOKEN or not RENDER_URL:
+    raise ValueError("❌ TELEGRAM_TOKEN ou RENDER_URL não definidos no .env")
+
+# Define o endpoint do webhook
 WEBHOOK_URL = f"{RENDER_URL}/{TOKEN}"
 
-# Chamada para definir o webhook
+# Faz a requisição para o Telegram
 response = requests.get(
     f"https://api.telegram.org/bot{TOKEN}/setWebhook",
     params={"url": WEBHOOK_URL}
 )
 
-# Resultado
+# Mostra o resultado
 if response.status_code == 200:
     print("✅ Webhook configurado com sucesso!")
     print(response.json())
