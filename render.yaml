@@ -8,7 +8,7 @@ services:
       - key: TELEGRAM_TOKEN
         value: 8085126675:AAEC4utEtdNH1gyK_FRhdz-fgZqyirwtYCQ
       - key: RENDER_URL
-        value: https://seu-subdominio.onrender.com
+        value: https://mlapidivulg.onrender.com
     autoDeploy: true
     startPhase:
       commands:
