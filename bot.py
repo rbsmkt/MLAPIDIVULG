@@ -3,7 +3,7 @@ from telegram import Bot, Update
 from telegram.ext import Dispatcher, CommandHandler
 import os
 
-TOKEN = os.getenv("8085126675:AAEC4utEtdNH1gyK_FRhdz-fgZqyirwtYCQ")
+TOKEN = os.getenv("TELEGRAM_TOKEN")
 bot = Bot(token=TOKEN)
 
 app = Flask(__name__)  # 👈 Isso é essencial para o gunicorn encontrar
