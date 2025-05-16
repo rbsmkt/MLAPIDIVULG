@@ -1,12 +1,17 @@
-from telegram import Update
-from telegram.ext import CallbackContext
+from flask import Flask, request
+from telegram import Bot, Update
+from telegram.ext import Dispatcher, CommandHandler
 
-def start(update: Update, context: CallbackContext):
-    update.message.reply_text("Olá! Envie um link do Mercado Livre para começar.")
+TOKEN = '8085126675:AAEC4utEtdNH1gyK_FRhdz-fgZqyirwtYCQ'
+bot = Bot(token=TOKEN)
 
-def handle_message(update: Update, context: CallbackContext):
-    text = update.message.text
-    if "mercadolivre.com.br" in text:
-        update.message.reply_text(f"Você mandou um link do Mercado Livre: {text}")
-    else:
-        update.message.reply_text("Envie um link válido do Mercado Livre.")
+app = Flask(__name__)
+
+@app.route('/', methods=['POST'])
+def webhook():
+    update = Update.de_json(request.get_json(force=True), bot)
+    dispatcher.process_update(update)
+    return 'ok'
+
+dispatcher = Dispatcher(bot, None, workers=0)
+dispatcher.add_handler(CommandHandler('start', lambda update, context: update.message.reply_text("Olá!")))
