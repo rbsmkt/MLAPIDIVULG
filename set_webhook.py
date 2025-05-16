@@ -1,9 +1,25 @@
-from telegram import Bot
+import requests
+import os
 
-TOKEN = "8085126675:AAEC4utEtdNH1gyK_FRhdz-fgZqyirwtYCQ"
-WEBHOOK_URL = f"https://telegram-ml-bot-production.up.railway.app/{TOKEN}"
+# Pegue o token da variável de ambiente ou coloque direto (menos seguro)
+TOKEN = os.getenv("TELEGRAM_TOKEN", "8085126675:AAEC4utEtdNH1gyK_FRhdz-fgZqyirwtYCQ")
 
-bot = Bot(token=TOKEN)
-bot.set_webhook(url=WEBHOOK_URL)
+# Seu domínio no Render (sem barra no final)
+RENDER_URL = "https://seu-app-no-render.onrender.com"
 
-print("Webhook configurado com sucesso!")
+# Define a URL completa do webhook
+WEBHOOK_URL = f"{RENDER_URL}/{TOKEN}"
+
+# Chamada para definir o webhook
+response = requests.get(
+    f"https://api.telegram.org/bot{TOKEN}/setWebhook",
+    params={"url": WEBHOOK_URL}
+)
+
+# Resultado
+if response.status_code == 200:
+    print("✅ Webhook configurado com sucesso!")
+    print(response.json())
+else:
+    print("❌ Erro ao configurar webhook:")
+    print(response.text)
