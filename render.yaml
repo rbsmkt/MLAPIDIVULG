@@ -1,6 +1,16 @@
 services:
   - type: web
-    name: telegram-ml-bot
+    name: telegram-bot-webhook
     env: python
     buildCommand: pip install -r requirements.txt
-    startCommand: python bot.py
+    startCommand: gunicorn webhook:app
+    envVars:
+      - key: TELEGRAM_TOKEN
+        value: 8085126675:AAEC4utEtdNH1gyK_FRhdz-fgZqyirwtYCQ
+      - key: RENDER_URL
+        value: https://seu-subdominio.onrender.com
+    autoDeploy: true
+    startPhase:
+      commands:
+        - echo "Configurando Webhook..."
+        - python set_webhook.py
