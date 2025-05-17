@@ -1,11 +1,14 @@
-import os
-from telegram import Bot
+import requests
 
-TOKEN = os.getenv("TELEGRAM_TOKEN")
-RENDER_URL = os.getenv("RENDER_URL")
+TOKEN = "8085126675:AAEC4utEtdNH1gyK_FRhdz-fgZqyirwtYCQ"
+URL = f"import requests
 
-bot = Bot(token=TOKEN)
-webhook_url = f"{RENDER_URL}/{TOKEN}"
+TOKEN = "8085126675:AAEC4utEtdNH1gyK_FRhdz-fgZqyirwtYCQ"
+URL = f"https://mlapidivulg.onrender.com/{TOKEN}"
 
-bot.set_webhook(url=webhook_url)
-print(f"Webhook set to: {webhook_url}")
+res = requests.get(f"https://api.telegram.org/bot{TOKEN}/setWebhook?url={URL}")
+print(res.text)
+/{TOKEN}"
+
+res = requests.get(f"https://api.telegram.org/bot{TOKEN}/setWebhook?url={URL}")
+print(res.text)
