@@ -4,7 +4,7 @@ from telegram.ext import Dispatcher, CommandHandler
 import os
 
 # Corrigido: Pegando variável de ambiente corretamente
-TOKEN = os.getenv("TELEGRAM_TOKEN")
+TOKEN = os.getenv("8085126675:AAEC4utEtdNH1gyK_FRhdz-fgZqyirwtYCQ")
 bot = Bot(token=TOKEN)
 
 app = Flask(__name__)
